@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小勇士跳跳 (前後腳交替跳）！</title>
+    <!-- 使用 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=500;700;900&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-amber-50/50 min-h-screen py-8 px-4 flex items-center justify-center">
+
+    <div class="w-full max-w-xl bg-white rounded-[2.5rem] border-8 border-amber-400 shadow-2xl overflow-hidden">
+        
+        <!-- 標題區 -->
+        <div class="bg-gradient-to-r from-amber-400 to-orange-400 p-6 text-center text-white">
+            <h1 class="text-3xl font-black tracking-wider drop-shadow-sm">小勇士跳跳 (前後腳交替跳）！</h1>
+            <p class="text-lg font-bold text-amber-100 mt-1">大家一起動起來！</p>
+        </div>
+
+        <!-- 步驟按鈕選單 -->
+        <div class="p-4 bg-amber-50/50 grid grid-cols-5 gap-1.5 border-b border-amber-100">
+            <button onclick="selectStep(0)" id="btn-0" class="bg-white border-2 border-amber-300 hover:bg-amber-100 text-amber-800 font-black py-2 px-1 rounded-xl shadow-sm transition text-xs text-center">
+                準備
+            </button>
+            <button onclick="selectStep(1)" id="btn-1" class="bg-white border-2 border-amber-300 hover:bg-amber-100 text-amber-800 font-black py-2 px-1 rounded-xl shadow-sm transition text-xs text-center">
+                弓步
+            </button>
+            <button onclick="selectStep(2)" id="btn-2" class="bg-white border-2 border-amber-300 hover:bg-amber-100 text-amber-800 font-black py-2 px-1 rounded-xl shadow-sm transition text-xs text-center">
+                跳起
+            </button>
+            <button onclick="selectStep(3)" id="btn-3" class="bg-white border-2 border-amber-300 hover:bg-amber-100 text-amber-800 font-black py-2 px-1 rounded-xl shadow-sm transition text-xs text-center">
+                換腳
+            </button>
+            <button onclick="selectStep(4)" id="btn-4" class="bg-white border-2 border-amber-300 hover:bg-amber-100 text-amber-800 font-black py-2 px-1 rounded-xl shadow-sm transition text-xs text-center">
+                落地
+            </button>
+        </div>
+
+        <!-- 播放完整連續動作按鈕 -->
+        <div class="px-6 pt-4">
+            <button id="play-all-btn" onclick="togglePlayAll()" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-black py-3 rounded-xl shadow-md transition transform active:scale-95 flex items-center justify-center gap-2">
+                <span id="play-btn-icon">▶️</span> <span id="play-btn-text">播放完整連續動作！</span>
+            </button>
+        </div>
+
+        <!-- 圖解顯示區 -->
+        <div class="p-6 bg-white flex flex-col items-center">
+            <div id="graphic-container" class="bg-amber-50/30 p-4 rounded-2xl border border-amber-100 w-full max-w-[220px] text-center">
+                <!-- 這裡會由 JavaScript 動態寫入 SVG 圖解 -->
+            </div>
+            <!-- 提示觀眾互動的文字 -->
+            <p class="text-amber-500 font-black text-sm mt-3 animate-bounce">👇 點擊按鈕試試看！</p>
+        </div>
+
+        <!-- 5個獨立的內容方塊 (5 Separate Boxes) -->
+        <div class="px-6 pb-8 space-y-3">
+            
+            <!-- Box 1 -->
+            <div id="box-0" onclick="selectStep(0)" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-100 bg-slate-50/50 transition duration-300 flex items-start gap-3">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-black text-sm">1</span>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">準備姿勢</h4>
+                    <p class="text-slate-600 text-sm font-bold mt-0.5">雙腳與肩同寬站立，身體保持直立，雙手可自然擺動或叉腰協助平衡。</p>
+                </div>
+            </div>
+
+            <!-- Box 2 -->
+            <div id="box-1" onclick="selectStep(1)" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-100 bg-slate-50/50 transition duration-300 flex items-start gap-3">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-black text-sm">2</span>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">踏出弓步</h4>
+                    <p class="text-slate-600 text-sm font-bold mt-0.5">其中一隻腳向前踏出成弓字步姿勢。</p>
+                </div>
+            </div>
+
+            <!-- Box 3 -->
+            <div id="box-2" onclick="selectStep(2)" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-100 bg-slate-50/50 transition duration-300 flex items-start gap-3">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-black text-sm">3</span>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">輕輕跳起</h4>
+                    <p class="text-slate-600 text-sm font-bold mt-0.5">雙腳同時輕輕跳起。</p>
+                </div>
+            </div>
+
+            <!-- Box 4 -->
+            <div id="box-3" onclick="selectStep(3)" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-100 bg-slate-50/50 transition duration-300 flex items-start gap-3">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-black text-sm">4</span>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">空中換腳</h4>
+                    <p class="text-slate-600 text-sm font-bold mt-0.5">在空中交換前後腳位置。</p>
+                </div>
+            </div>
+
+            <!-- Box 5 -->
+            <div id="box-4" onclick="selectStep(4)" class="cursor-pointer p-4 rounded-2xl border-2 border-slate-100 bg-slate-50/50 transition duration-300 flex items-start gap-3">
+                <span class="flex-shrink-0 w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-black text-sm">5</span>
+                <div>
+                    <h4 class="font-black text-slate-800 text-base">穩穩落地</h4>
+                    <p class="text-slate-600 text-sm font-bold mt-0.5">穩穩落地。</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 結尾鼓勵語 -->
+        <div class="text-center pb-8 border-t border-slate-100 pt-4">
+            <p class="text-amber-600 font-black text-base">你做得太棒了！繼續加油跳跳作戰啦！</p>
+        </div>
+
+    </div>
+
+    <script>
+        // 定義各步驟對應的 SVG 圖解
+        const svgs = [
+            // 0. 準備姿勢
+            `
+            <svg viewBox="0 0 200 200" class="w-40 h-40 mx-auto">
+                <ellipse cx="100" cy="170" rx="30" ry="4" fill="#cbd5e1" opacity="0.6" />
+                <g>
+                    <circle cx="100" cy="55" r="18" fill="#FFD0A1" stroke="#334155" stroke-width="3" />
+                    <path d="M 83 48 Q 100 42 117 48" fill="none" stroke="#F43F5E" stroke-width="5" stroke-linecap="round" />
+                    <circle cx="93" cy="55" r="2" fill="#334155" />
+                    <circle cx="107" cy="55" r="2" fill="#334155" />
+                    <path d="M 95 62 Q 100 68 105 62" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 90 73 L 110 73 L 106 110 L 94 110 Z" fill="#F59E0B" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M 90 78 L 78 85 L 90 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 110 78 L 122 85 L 110 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 94 110 L 88 160" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 82 160 L 94 160" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 106 110 L 112 160" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 106 160 L 118 160" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                </g>
+            </svg>
+            `,
+            // 1. 踏出弓步
+            `
+            <svg viewBox="0 0 200 200" class="w-40 h-40 mx-auto">
+                <ellipse cx="100" cy="170" rx="55" ry="4" fill="#cbd5e1" opacity="0.6" />
+                <g transform="translate(0, 8)">
+                    <circle cx="100" cy="55" r="18" fill="#FFD0A1" stroke="#334155" stroke-width="3" />
+                    <path d="M 83 48 Q 100 42 117 48" fill="none" stroke="#F43F5E" stroke-width="5" stroke-linecap="round" />
+                    <circle cx="93" cy="55" r="2" fill="#334155" />
+                    <circle cx="107" cy="55" r="2" fill="#334155" />
+                    <path d="M 95 62 Q 100 68 105 62" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 90 73 L 110 73 L 106 110 L 94 110 Z" fill="#F59E0B" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M 90 78 L 78 85 L 90 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 110 78 L 122 85 L 110 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    
+                    <!-- 左腳在後 (整條腿完全拉直 - 灰色) -->
+                    <path d="M 94 110 L 45 157" fill="none" stroke="#D1D5DB" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 40 157 L 52 157" fill="none" stroke="#9CA3AF" stroke-width="10" stroke-linecap="round" />
+                    
+                    <!-- 右腳在前 (彎曲 - 彩色) -->
+                    <path d="M 106 110 L 135 125 L 135 157" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 130 157 L 142 157" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                </g>
+            </svg>
+            `,
+            // 2. 輕輕跳起
+            `
+            <svg viewBox="0 0 200 200" class="w-40 h-40 mx-auto">
+                <ellipse cx="100" cy="180" rx="40" ry="2" fill="#cbd5e1" opacity="0.3" />
+                <g transform="translate(0, -18)">
+                    <circle cx="100" cy="55" r="18" fill="#FFD0A1" stroke="#334155" stroke-width="3" />
+                    <path d="M 83 48 Q 100 42 117 48" fill="none" stroke="#F43F5E" stroke-width="5" stroke-linecap="round" />
+                    <circle cx="93" cy="55" r="2" fill="#334155" />
+                    <circle cx="107" cy="55" r="2" fill="#334155" />
+                    <path d="M 93 63 Q 100 58 107 63" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 90 73 L 110 73 L 106 110 L 94 110 Z" fill="#F59E0B" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M 90 78 L 75 90 L 85 102" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 110 78 L 125 90 L 115 102" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    
+                    <!-- 左腳在後 (整條腿完全拉直 - 灰色) -->
+                    <path d="M 94 110 L 50 150" fill="none" stroke="#D1D5DB" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 45 150 L 55 152" fill="none" stroke="#9CA3AF" stroke-width="10" stroke-linecap="round" />
+                    
+                    <!-- 右腳在前 (彎曲 - 彩色) -->
+                    <path d="M 106 110 L 135 122 L 130 150" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 125 150 L 135 152" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                </g>
+                <path d="M 50 155 L 50 170" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" />
+                <path d="M 150 155 L 150 170" stroke="#F59E0B" stroke-width="3" stroke-linecap="round" />
+            </svg>
+            `,
+            // 3. 空中換腳
+            `
+            <svg viewBox="0 0 200 200" class="w-40 h-40 mx-auto">
+                <ellipse cx="100" cy="180" rx="40" ry="2" fill="#cbd5e1" opacity="0.3" />
+                <g transform="translate(0, -18)">
+                    <circle cx="100" cy="55" r="18" fill="#FFD0A1" stroke="#334155" stroke-width="3" />
+                    <path d="M 83 48 Q 100 42 117 48" fill="none" stroke="#F43F5E" stroke-width="5" stroke-linecap="round" />
+                    <circle cx="93" cy="55" r="2" fill="#334155" />
+                    <circle cx="107" cy="55" r="2" fill="#334155" />
+                    <path d="M 93 63 Q 100 58 107 63" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 90 73 L 110 73 L 106 110 L 94 110 Z" fill="#F59E0B" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M 90 78 L 75 90 L 85 102" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 110 78 L 125 90 L 115 102" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    
+                    <!-- 左腳在前 (彎曲 - 灰色) -->
+                    <path d="M 94 110 L 65 122 L 70 150" fill="none" stroke="#D1D5DB" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 65 150 L 75 152" fill="none" stroke="#9CA3AF" stroke-width="10" stroke-linecap="round" />
+                    
+                    <!-- 右腳在後 (整條腿完全拉直 - 彩色) -->
+                    <path d="M 106 110 L 150 150" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 145 150 L 155 152" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                </g>
+                <path d="M 65 130 Q 100 110 135 130" fill="none" stroke="#38BDF8" stroke-width="3" stroke-dasharray="6 6" />
+            </svg>
+            `,
+            // 4. 穩穩落地
+            `
+            <svg viewBox="0 0 200 200" class="w-40 h-40 mx-auto">
+                <ellipse cx="100" cy="170" rx="55" ry="4" fill="#cbd5e1" opacity="0.6" />
+                <g transform="translate(0, 8)">
+                    <circle cx="100" cy="55" r="18" fill="#FFD0A1" stroke="#334155" stroke-width="3" />
+                    <path d="M 83 48 Q 100 42 117 48" fill="none" stroke="#F43F5E" stroke-width="5" stroke-linecap="round" />
+                    <circle cx="93" cy="55" r="2" fill="#334155" />
+                    <circle cx="107" cy="55" r="2" fill="#334155" />
+                    <path d="M 95 62 Q 100 68 105 62" fill="none" stroke="#334155" stroke-width="2.5" stroke-linecap="round" />
+                    <path d="M 90 73 L 110 73 L 106 110 L 94 110 Z" fill="#F59E0B" stroke="#334155" stroke-width="3" stroke-linejoin="round" />
+                    <path d="M 90 78 L 78 85 L 90 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 110 78 L 122 85 L 110 94" fill="none" stroke="#FFD0A1" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+                    
+                    <!-- 左腳在前 (彎曲 - 灰色) -->
+                    <path d="M 94 110 L 65 125 L 65 157" fill="none" stroke="#D1D5DB" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M 60 157 L 72 157" fill="none" stroke="#9CA3AF" stroke-width="10" stroke-linecap="round" />
+                    
+                    <!-- 右腳在後 (整條腿完全拉直 - 彩色) -->
+                    <path d="M 106 110 L 155 157" fill="none" stroke="#FFD0A1" stroke-width="10" stroke-linecap="round" />
+                    <path d="M 150 157 L 162 157" fill="none" stroke="#EF4444" stroke-width="10" stroke-linecap="round" />
+                </g>
+            </svg>
+            `
+        ];
+
+        // --- 音效合成器 (Web Audio API) ---
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        // 播放可愛的電子切換音效 (Pop 音效)
+        function playStepSound(index) {
+            try {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                // 根據步驟決定基礎音高 (1: 準備 -> 5: 落地，音調逐漸上升，最後一個穩重低音)
+                const tones = [261.63, 329.63, 392.00, 523.25, 349.23]; // C4, E4, G4, C5, F4
+                const baseFreq = tones[index] || 300;
+
+                osc.type = 'triangle'; // 三角波，聽起來比較柔和、像木琴/遊戲音效
+                
+                // 頻率快速滑動，做出「啵」的彈跳感
+                osc.frequency.setValueAtTime(baseFreq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, audioCtx.currentTime + 0.12);
+
+                // 音量淡出控制
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.16);
+            } catch (e) {
+                console.log("Audio play blocked or not supported:", e);
+            }
+        }
+
+        // 顯示特定步驟的函數
+        function showStep(index) {
+            // 1. 更新圖解
+            const container = document.getElementById('graphic-container');
+            container.innerHTML = svgs[index];
+
+            // 2. 更新按鈕樣式 (高亮當前按鈕)
+            for (let i = 0; i < 5; i++) {
+                const btn = document.getElementById(`btn-${i}`);
+                if (i === index) {
+                    btn.classList.remove('bg-white', 'text-amber-800', 'border-amber-300');
+                    btn.classList.add('bg-amber-500', 'text-white', 'border-amber-500');
+                } else {
+                    btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500');
+                    btn.classList.add('bg-white', 'text-amber-800', 'border-amber-300');
+                }
+            }
+
+            // 3. 更新 5 個獨立方塊的樣式 (高亮當前方塊)
+            for (let i = 0; i < 5; i++) {
+                const box = document.getElementById(`box-${i}`);
+                const numSpan = box.querySelector('span');
+                
+                if (i === index) {
+                    box.classList.remove('border-slate-100', 'bg-slate-50/50');
+                    box.classList.add('border-orange-400', 'bg-orange-50/60', 'scale-[1.02]', 'shadow-md');
+                    numSpan.classList.remove('bg-slate-200', 'text-slate-700');
+                    numSpan.classList.add('bg-orange-500', 'text-white');
+                } else {
+                    box.classList.remove('border-orange-400', 'bg-orange-50/60', 'scale-[1.02]', 'shadow-md');
+                    box.classList.add('border-slate-100', 'bg-slate-50/50');
+                    numSpan.classList.remove('bg-orange-500', 'text-white');
+                    numSpan.classList.add('bg-slate-200', 'text-slate-700');
+                }
+            }
+        }
+
+        // 當使用者主動點擊按鈕或方塊時
+        function selectStep(index) {
+            stopPlayAll(); // 手動點擊時，先停止自動播放
+            showStep(index);
+            playStepSound(index); // 播放對應步驟的音效
+        }
+
+        // --- 自動播放控制邏輯 ---
+        let playInterval = null;
+        let isPlaying = false;
+
+        // 切換播放與停止狀態
+        function togglePlayAll() {
+            if (isPlaying) {
+                stopPlayAll();
+            } else {
+                startPlayAll();
+            }
+        }
+
+        // 開始播放
+        function startPlayAll() {
+            isPlaying = true;
+            updatePlayButtonState(true);
+
+            let current = 0;
+            showStep(current);
+            playStepSound(current);
+            
+            playInterval = setInterval(() => {
+                current++;
+                if (current < 5) {
+                    showStep(current);
+                    playStepSound(current);
+                } else {
+                    stopPlayAll(); // 播完最後一個動作後自動停止
+                }
+            }, 1000); // 播放速度：每個動作停留 1 秒 (1000 毫秒)
+        }
+
+        // 停止播放
+        function stopPlayAll() {
+            if (playInterval) {
+                clearInterval(playInterval);
+                playInterval = null;
+            }
+            isPlaying = false;
+            updatePlayButtonState(false);
+        }
+
+        // 更新「播放/停止」按鈕的外觀與文字
+        function updatePlayButtonState(playing) {
+            const btn = document.getElementById('play-all-btn');
+            const icon = document.getElementById('play-btn-icon');
+            const text = document.getElementById('play-btn-text');
+
+            if (playing) {
+                // 變更為紅色「停止跳躍作戰！」
+                btn.classList.remove('bg-orange-500', 'hover:bg-orange-600');
+                btn.classList.add('bg-red-500', 'hover:bg-red-600');
+                icon.innerText = '⏹️';
+                text.innerText = '停止跳躍作戰！';
+            } else {
+                // 恢復為橘色「播放完整連續動作！」
+                btn.classList.remove('bg-red-500', 'hover:bg-red-600');
+                btn.classList.add('bg-orange-500', 'hover:bg-orange-600');
+                icon.innerText = '▶️';
+                text.innerText = '播放完整連續動作！';
+            }
+        }
+
+        // 初始化載入「準備姿勢」
+        showStep(0);
+    </script>
+
+
+</body></html>
